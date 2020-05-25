@@ -1,6 +1,5 @@
 import {getRandomItem, getRandomIntegerNumber, getRandomBoolean} from './utils';
 import {shuffleArray} from '../utils/common';
-import {createComment} from './comment';
 
 const MIN_COUNT_DESCRIPTION = 1;
 const MAX_COUNT_DESCRIPTION = 3;
@@ -53,30 +52,35 @@ const generateRandomId = () => Math.round(Math.random() * Math.pow(36, 12)).toSt
 
 export const generateCard = () => {
   const countDescription = getRandomIntegerNumber(MIN_COUNT_DESCRIPTION, MAX_COUNT_DESCRIPTION);
-  const getComments = () => {
-    const count = getRandomIntegerNumber(0, 10);
-    return new Array(count).fill(``).map(createComment);
-  };
 
   return {
-    id: generateRandomId(),
-    title: getRandomItem(FILMS_NAME),
-    rate: getRandomIntegerNumber(0, 100) / 10,
-    poster: getRandomItem(POSTERS),
-    description: shuffleArray(DESCRIPTION).slice(0, countDescription).join(` `),
-    comments: getComments(),
-    genre: [`Action`, `Adventure`],
-    isWatchlist: getRandomBoolean(),
-    isWatched: getRandomBoolean(),
-    isFavorite: getRandomBoolean(),
-    director: [`Anthony Mann`],
-    writers: [`Anne Wigton`, `Heinz Herald`, `Richard Weil`],
-    actors: [`Erich von Stroheim`, `Mary Beth Hughes`, `Dan Duryea`],
-    releaseDate: new Date(getRandomIntegerNumber(0, Date.now())),
-    country: [`USA`],
-    duration: getRandomIntegerNumber(30, 180),
-    age: [`18+`],
+    "id": generateRandomId(),
+    "comments": [],
+    "film_info": {
+      "title": getRandomItem(FILMS_NAME),
+      "alternative_title": getRandomItem(FILMS_NAME),
+      "total_rating": getRandomIntegerNumber(0, 100) / 10,
+      "poster": getRandomItem(POSTERS),
+      "age_rating": [`18+`],
+      "director": [`Anthony Mann`],
+      "writers": [`Anne Wigton`, `Heinz Herald`, `Richard Weil`],
+      "actors": [`Erich von Stroheim`, `Mary Beth Hughes`, `Dan Duryea`],
+      "release": {
+        "date": `2019-04-12T16:12:32.554Z`,
+        "release_country": `USA`,
+      },
+      "runtime": getRandomIntegerNumber(30, 180),
+      "genre": [`Action`, `Adventure`],
+      "description": shuffleArray(DESCRIPTION).slice(0, countDescription).join(` `),
+    },
+    "user_details": {
+      "watchlist": getRandomBoolean(),
+      "already_watched": getRandomBoolean(),
+      "watching_date": `2019-04-12T16:12:32.554Z`,
+      "favorite": getRandomBoolean(),
+    }
   };
+
 };
 
 export const generateCards = (count) => [...Array(count)].map(generateCard);

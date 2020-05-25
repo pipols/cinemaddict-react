@@ -6,7 +6,7 @@ import CommentsComponent from "../comments/comments.jsx";
 
 const FilmDetails = () => {
   return (
-    <section className="film-details">
+    <section className="film-details visually-hidden">
       <form className="film-details__inner" action="" method="get">
         <div className="form-details__top-container">
           <FilmDetailsCloseButtonComponent/>

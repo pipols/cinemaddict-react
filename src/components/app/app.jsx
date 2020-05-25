@@ -5,11 +5,9 @@ import {getRandomIntegerNumber} from "../../mocks/utils";
 
 const cards = generateCards(getRandomIntegerNumber(10, 30));
 
-console.log(cards);
-
 const App = () => {
   return (
-    <MainPageComponent/>
+    <MainPageComponent cards={cards}/>
   );
 };
 
