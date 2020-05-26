@@ -10,10 +10,6 @@ const FilmsList = ({cards}) => {
 
       <div className="films-list__container">
         <FilmCardComponent card={cards[0]}/>
-        <FilmCardComponent card={cards[0]}/>
-        <FilmCardComponent card={cards[0]}/>
-        <FilmCardComponent card={cards[0]}/>
-        <FilmCardComponent card={cards[0]}/>
       </div>
 
       <ShowMoreComponent/>

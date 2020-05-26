@@ -6,7 +6,6 @@ import FilmDetailsComponent from "../film-details/film-details.jsx";
 
 // eslint-disable-next-line react/prop-types
 const Main = ({cards}) => {
-  console.log(cards[0]);
   return (
     <React.Fragment>
       <HeaderComponent />

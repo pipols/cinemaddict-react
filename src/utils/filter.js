@@ -5,11 +5,11 @@ export const getCardsByFilter = (cards, filter) => {
     case FilterType.ALL:
       return cards;
     case FilterType.WATCHLIST:
-      return cards.filter((card) => card.user_details.watchlist);
+      return cards.filter((card) => card.watchlist);
     case FilterType.HISTORY:
-      return cards.filter((card) => card.user_details.already_watched);
+      return cards.filter((card) => card.watched);
     case FilterType.FAVORITES:
-      return cards.filter((card) => card.user_details.favorite);
+      return cards.filter((card) => card.favorite);
   }
 
   return cards;
