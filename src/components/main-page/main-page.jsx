@@ -4,13 +4,15 @@ import MainComponent from "../main/main.jsx";
 import FooterComponent from "../footer/footer.jsx";
 import FilmDetailsComponent from "../film-details/film-details.jsx";
 
-const Main = () => {
+// eslint-disable-next-line react/prop-types
+const Main = ({cards}) => {
+  console.log(cards[0]);
   return (
     <React.Fragment>
-      <HeaderComponent/>
-      <MainComponent/>
+      <HeaderComponent />
+      <MainComponent cards={cards}/>
       <FooterComponent/>
-      <FilmDetailsComponent/>
+      <FilmDetailsComponent card={cards[0]}/>
     </React.Fragment>
   );
 };

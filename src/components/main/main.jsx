@@ -3,12 +3,13 @@ import MainNavigationComponent from "../main-navigation/main-navigation.jsx";
 import SortComponent from "../sort/sort.jsx";
 import FilmsContainerComponent from "../films-container/films-container.jsx";
 
-const Main = () => {
+// eslint-disable-next-line react/prop-types
+const Main = ({cards}) => {
   return (
     <main className="main">
-      <MainNavigationComponent/>
+      <MainNavigationComponent cards={cards}/>
       <SortComponent/>
-      <FilmsContainerComponent/>
+      <FilmsContainerComponent cards={cards}/>
     </main>
   );
 };
