@@ -1,18 +1,24 @@
 import React from "react";
 
-const FilmCard = () => {
+// eslint-disable-next-line react/prop-types
+const FilmCard = (props) => {
+  // eslint-disable-next-line camelcase,react/prop-types
+  const {film_info} = props;
+  // eslint-disable-next-line camelcase,react/prop-types
+  const {title, total_rating, release, runtime, genre, poster} = film_info;
   return (
     <article className="film-card">
-      <h3 className="film-card__title">Popeye the Sailor Meets Sindbad the Sailor</h3>
-      <p className="film-card__rating">6.3</p>
+      <h3 className="film-card__title">{title}</h3>
+      {/* eslint-disable-next-line camelcase */}
+      <p className="film-card__rating">{total_rating}</p>
       <p className="film-card__info">
-        <span className="film-card__year">1936</span>
-        <span className="film-card__duration">16m</span>
-        <span className="film-card__genre">Cartoon</span>
+        {/* eslint-disable-next-line react/prop-types */}
+        <span className="film-card__year">{release.date}</span>
+        <span className="film-card__duration">{runtime}</span>
+        <span className="film-card__genre">{genre}</span>
       </p>
-      <img src="./images/posters/popeye-meets-sinbad.png" alt="" className="film-card__poster"/>
-      <p className="film-card__description">In this short, Sindbad the Sailor (presumably Bluto playing a
-        role) proclaims himself, in song, to be the greatest sailor, adventurer and…</p>
+      <img src={poster} alt="" className="film-card__poster"/>
+      <p className="film-card__description"></p>
       <a className="film-card__comments">0 comments</a>
       <form className="film-card__controls">
         <button

@@ -2,10 +2,11 @@ import React from "react";
 import FilmsListComponent from "../films-list/films-list.jsx";
 import FilmsListExtraComponent from "../films-list-extra/films-list-extra.jsx";
 
-const FilmsContainer = () => {
+// eslint-disable-next-line react/prop-types
+const FilmsContainer = ({cards}) => {
   return (
     <section className="films">
-      <FilmsListComponent/>
+      <FilmsListComponent cards={cards}/>
       <FilmsListExtraComponent/>
       <FilmsListExtraComponent/>
     </section>
