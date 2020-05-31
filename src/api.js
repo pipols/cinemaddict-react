@@ -1,10 +1,13 @@
-import axios from 'axios';
+import axios from "axios";
+
+const TOKEN = `Basic er88shdng3jdzbdw`;
 
 const createAPI = (onResponse) => {
   const api = axios.create({
     baseURL: `https://11.ecmascript.pages.academy/cinemaddict/`,
     timeout: 5000,
-    withCredentials: true,
+    // withCredentials: true,
+    headers: { Authorization: TOKEN },
   });
 
   const onSuccess = (response) => {
@@ -12,7 +15,7 @@ const createAPI = (onResponse) => {
   };
 
   const onFail = (err) => {
-    const {response} = err;
+    const { response } = err;
     onResponse(response);
 
     throw err;

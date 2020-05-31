@@ -1,9 +1,15 @@
 import React from "react";
 
-const FilmDetailsCloseButton = () => {
+const FilmDetailsCloseButton = ({ handlerCloseButtonClick }) => {
   return (
     <div className="film-details__close">
-      <button className="film-details__close-btn" type="button">close</button>
+      <button
+        onClick={handlerCloseButtonClick}
+        className="film-details__close-btn"
+        type="button"
+      >
+        close
+      </button>
     </div>
   );
 };
