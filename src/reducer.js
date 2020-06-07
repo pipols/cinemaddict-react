@@ -1,15 +1,20 @@
 import { extend } from "./utils/common";
 import { filmsAdapter } from "./utils/adapter";
+import { SortType, FilterType } from "./const";
 
 const initialState = {
   films: [],
   openedFilm: null,
+  activeSortType: SortType.DEFAULT,
+  activeFilterType: FilterType.ALL,
 };
 
 const ActionType = {
   LOAD_FILMS: `LOAD_FILMS`,
   SET_OPENED_FILM: `SET_OPENED_FILM`,
   REMOVE_OPENED_FILM: `REMOVE_OPENED_FILM`,
+  SET_SORT_TYPE: `SET_SORT_TYPE`,
+  SET_FILTER_TYPE: `SET_FILTER_TYPE`,
 };
 
 export const ActionCreator = {
@@ -24,6 +29,14 @@ export const ActionCreator = {
   removeOpenedFilm: () => ({
     type: ActionType.REMOVE_OPENED_FILM,
     payload: null,
+  }),
+  setSortType: (sortType) => ({
+    type: ActionType.SET_SORT_TYPE,
+    payload: sortType,
+  }),
+  setFilterType: (filterType) => ({
+    type: ActionType.SET_FILTER_TYPE,
+    payload: filterType,
   }),
 };
 
@@ -40,6 +53,14 @@ export const reducer = (state = initialState, action) => {
     case ActionType.REMOVE_OPENED_FILM:
       return extend(state, {
         openedFilm: action.payload,
+      });
+    case ActionType.SET_SORT_TYPE:
+      return extend(state, {
+        activeSortType: action.payload,
+      });
+    case ActionType.SET_FILTER_TYPE:
+      return extend(state, {
+        activeFilterType: action.payload,
       });
   }
 
