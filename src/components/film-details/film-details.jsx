@@ -1,5 +1,4 @@
 import React from "react";
-
 import FilmDetailsCloseButtonComponent from "../film-details-close-button/film-details-close-button.jsx";
 import FilmDetailsInfoComponent from "../film-details-info/film-details-info.jsx";
 import FilmDetailsControlsComponent from "../film-details-controls/film-details-controls.jsx";
@@ -17,9 +16,7 @@ class FilmDetails extends React.PureComponent {
       >
         <form className="film-details__inner" action="" method="get">
           <div className="form-details__top-container">
-            <FilmDetailsCloseButtonComponent
-              handlerCloseButtonClick={this.props.handlerCloseButtonClick}
-            />
+            <FilmDetailsCloseButtonComponent />
             <FilmDetailsInfoComponent card={this.props.card} />
             <FilmDetailsControlsComponent card={this.props.card} />
           </div>

@@ -3,10 +3,10 @@ import FilmsListComponent from "../films-list/films-list.jsx";
 import FilmsListExtraComponent from "../films-list-extra/films-list-extra.jsx";
 
 // eslint-disable-next-line react/prop-types
-const FilmsContainer = ({ cards, handlerCardClick }) => {
+const FilmsContainer = () => {
   return (
     <section className="films">
-      <FilmsListComponent cards={cards} handlerCardClick={handlerCardClick} />
+      <FilmsListComponent />
       <FilmsListExtraComponent />
       <FilmsListExtraComponent />
     </section>

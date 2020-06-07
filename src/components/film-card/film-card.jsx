@@ -1,7 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
+import { ActionCreator } from "../../reducer";
 
 // eslint-disable-next-line react/prop-types
-const FilmCard = ({ card, handlerCardClick }) => {
+const FilmCard = ({ card, setOpenedFilm }) => {
   // eslint-disable-next-line react/prop-types
   const {
     title,
@@ -15,7 +17,7 @@ const FilmCard = ({ card, handlerCardClick }) => {
   } = card;
   return (
     <article className="film-card">
-      <h3 onClick={() => handlerCardClick(card)} className="film-card__title">
+      <h3 onClick={() => setOpenedFilm(card)} className="film-card__title">
         {title}
       </h3>
       <p className="film-card__rating">{rating}</p>
@@ -26,14 +28,14 @@ const FilmCard = ({ card, handlerCardClick }) => {
         <span className="film-card__genre">{genre}</span>
       </p>
       <img
-        onClick={() => handlerCardClick(card)}
+        onClick={() => setOpenedFilm(card)}
         src={poster}
         alt={title}
         className="film-card__poster"
       />
       <p className="film-card__description">{description}</p>
       {/* eslint-disable-next-line react/prop-types */}
-      <a onClick={() => handlerCardClick(card)} className="film-card__comments">
+      <a onClick={() => setOpenedFilm(card)} className="film-card__comments">
         {comments.length} comments
       </a>
       <form className="film-card__controls">
@@ -51,4 +53,10 @@ const FilmCard = ({ card, handlerCardClick }) => {
   );
 };
 
-export default FilmCard;
+const mapDispachToProps = (dispatch) => ({
+  setOpenedFilm(film) {
+    dispatch(ActionCreator.setOpenedFilm(film));
+  },
+});
+
+export default connect(null, mapDispachToProps)(FilmCard);

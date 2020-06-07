@@ -17,3 +17,7 @@ export const shuffleArray = ([...array]) => {
   }
   return array;
 };
+
+export const extend = (a, b) => {
+  return Object.assign({}, a, b);
+};

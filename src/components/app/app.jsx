@@ -7,8 +7,8 @@ import { filmAdapter } from "../../utils/adapter";
 const newCards = generateCards(getRandomIntegerNumber(10, 30));
 const cards = newCards.map((card) => filmAdapter(card));
 
-const App = ({ films }) => {
-  return <MainPageComponent cards={films} />;
+const App = () => {
+  return <MainPageComponent />;
 };
 
 export default App;

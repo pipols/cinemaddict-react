@@ -3,6 +3,11 @@ import ReactDOM from "react-dom";
 import App from "./components/app/app.jsx";
 import createAPI from "./api";
 import { filmsAdapter } from "./utils/adapter";
+import { createStore, applyMiddleware } from "redux";
+import { reducer, operation } from "./reducer";
+import { Provider } from "react-redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunk from "redux-thunk";
 
 const container = document.querySelector(`#root`);
 
@@ -15,7 +20,21 @@ const onResponse = (response) => {
 
 const api = createAPI(onResponse);
 
-api
-  .get(`/movies`)
-  .then(({ data }) => filmsAdapter(data))
-  .then((films) => ReactDOM.render(<App films={films} />, container));
+const store = createStore(
+  reducer,
+  composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)))
+);
+
+store.dispatch(operation.loadFilms());
+
+// api
+//   .get(`/movies`)
+//   .then(({ data }) => filmsAdapter(data))
+//   .then((films) =>
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  container
+);
+// );
