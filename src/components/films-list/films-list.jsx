@@ -2,10 +2,11 @@ import React from "react";
 import FilmCardComponent from "../film-card/film-card.jsx";
 import ShowMoreComponent from "../show-more/show-more.jsx";
 import { connect } from "react-redux";
-import { getFilms } from "../../selector";
+import { getFilteredFilmsSelector } from "../../selector";
 
 // eslint-disable-next-line react/prop-types
-const FilmsList = ({ films }) => {
+const FilmsList = ({ getFilteredFilmsSelector }) => {
+  console.log(getFilteredFilmsSelector, `getFilteredFilmsSelector`);
   return (
     <section className="films-list">
       <h2 className="films-list__title visually-hidden">
@@ -13,9 +14,10 @@ const FilmsList = ({ films }) => {
       </h2>
 
       <div className="films-list__container">
-        {films.map((card, i) => (
-          <FilmCardComponent key={i} card={card} />
-        ))}
+        {getFilteredFilmsSelector &&
+          getFilteredFilmsSelector.map((card, i) => (
+            <FilmCardComponent key={i} card={card} />
+          ))}
       </div>
 
       <ShowMoreComponent />
@@ -24,7 +26,7 @@ const FilmsList = ({ films }) => {
 };
 
 const mapStateToProps = (state) => ({
-  films: getFilms(state),
+  films: getFilteredFilmsSelector(state),
 });
 
 export default connect(mapStateToProps)(FilmsList);

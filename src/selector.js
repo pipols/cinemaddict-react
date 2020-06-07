@@ -11,8 +11,11 @@ export const getFilteredFilmsSelector = createSelector(
   getFilms,
   getActiveSort,
   getActiveFilter,
-  (films, activeSort, activeFilter) => {
-    const filteredFilms = getCardsByFilter(films, getActiveFilter);
-    return getCardsBySortType(filteredFilms, getActiveSort);
-  }
+  (films, activeSort, activeFilter) => films
 );
+
+// const filteredFilms = getCardsByFilter(films, activeFilter);
+//     console.log(getFilms, `getFilms`);
+//     console.log(films, `films`);
+//     console.log(activeSort, `activeSort`);
+//     return getCardsBySortType(filteredFilms, activeSort);
