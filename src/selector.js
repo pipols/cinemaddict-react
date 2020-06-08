@@ -6,16 +6,22 @@ export const getFilms = (state) => state.films;
 export const getOpenedFilm = (state) => state.openedFilm;
 export const getActiveSort = (state) => state.activeSortType;
 export const getActiveFilter = (state) => state.activeFilterType;
+export const getFilmStack = (state) => state.filmStack;
 
 export const getFilteredFilmsSelector = createSelector(
   getFilms,
   getActiveSort,
   getActiveFilter,
-  (films, activeSort, activeFilter) => films
+  getFilmStack,
+  (films, activeSort, activeFilter, filmStack) => {
+    const filteredFilms = getCardsByFilter(films, activeFilter);
+    const sortedFilms = getCardsBySortType(filteredFilms, activeSort);
+    return sortedFilms.slice(0, filmStack);
+  }
 );
 
-// const filteredFilms = getCardsByFilter(films, activeFilter);
-//     console.log(getFilms, `getFilms`);
-//     console.log(films, `films`);
-//     console.log(activeSort, `activeSort`);
-//     return getCardsBySortType(filteredFilms, activeSort);
+export const isShowMoreSelector = createSelector(
+  getFilms,
+  getFilmStack,
+  (films, filmsStack) => films.length > filmsStack
+);

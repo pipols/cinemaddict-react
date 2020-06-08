@@ -1,9 +1,20 @@
 import React from "react";
+import { isShowMoreSelector } from "../../selector";
+import { connect } from "react-redux";
+import { ActionCreator } from "../../reducer";
 
-const ShowMore = () => {
+const ShowMore = ({ addFilmStack }) => {
   return (
-    <button className="films-list__show-more">Show more</button>
+    <button onClick={() => addFilmStack()} className="films-list__show-more">
+      Show more
+    </button>
   );
 };
 
-export default ShowMore;
+const mapDispatchToProps = (dispatch) => ({
+  addFilmStack() {
+    dispatch(ActionCreator.addFilmStack());
+  },
+});
+
+export default connect(null, mapDispatchToProps)(ShowMore);

@@ -7,7 +7,7 @@ export const getCardsBySortType = (cards, sortType) => {
     case SortType.DATE:
       return [...cards].sort((a, b) => b.releaseDate - a.releaseDate);
     case SortType.RATING:
-      return [...cards].sort((a, b) => b.rate - a.rate);
+      return [...cards].sort((a, b) => b.rating - a.rating);
     case SortType.COMMENT:
       return [...cards].sort(
         (a, b) => b.commentsId.length - a.commentsId.length

@@ -1,12 +1,13 @@
 import { extend } from "./utils/common";
 import { filmsAdapter } from "./utils/adapter";
-import { SortType, FilterType } from "./const";
+import { SortType, FilterType, CardCount } from "./const";
 
 const initialState = {
   films: [],
   openedFilm: null,
   activeSortType: SortType.DEFAULT,
   activeFilterType: FilterType.ALL,
+  filmStack: CardCount.MAIN_FILM,
 };
 
 const ActionType = {
@@ -15,6 +16,7 @@ const ActionType = {
   REMOVE_OPENED_FILM: `REMOVE_OPENED_FILM`,
   SET_SORT_TYPE: `SET_SORT_TYPE`,
   SET_FILTER_TYPE: `SET_FILTER_TYPE`,
+  ADD_FILM_STACK: `ADD_FILM_STACK`,
 };
 
 export const ActionCreator = {
@@ -37,6 +39,10 @@ export const ActionCreator = {
   setFilterType: (filterType) => ({
     type: ActionType.SET_FILTER_TYPE,
     payload: filterType,
+  }),
+  addFilmStack: () => ({
+    type: ActionType.ADD_FILM_STACK,
+    payload: CardCount.BY_BUTTON,
   }),
 };
 
@@ -61,6 +67,10 @@ export const reducer = (state = initialState, action) => {
     case ActionType.SET_FILTER_TYPE:
       return extend(state, {
         activeFilterType: action.payload,
+      });
+    case ActionType.ADD_FILM_STACK:
+      return extend(state, {
+        filmStack: state.filmStack + action.payload,
       });
   }
 
