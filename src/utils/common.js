@@ -21,3 +21,29 @@ export const shuffleArray = ([...array]) => {
 export const extend = (a, b) => {
   return Object.assign({}, a, b);
 };
+
+// 0 — звание не отображается;
+// от 1 до 10 — novice;
+// от 11 до 20 — fan;
+// от 21 и выше — movie buff;
+const NumberMoviesWatched = {
+  NOVICE: 10,
+  FAN: 20,
+};
+
+const ProfileRank = {
+  NOVICE: `novice`,
+  FAN: `fan`,
+  MOVIE_BUFF: `movie buff`,
+};
+
+export const getProfileRating = (countWatched) => {
+  if (countWatched <= NumberMoviesWatched.NOVICE) {
+    return ProfileRank.NOVICE;
+  } else if (countWatched <= NumberMoviesWatched.FAN) {
+    return ProfileRank.FAN;
+  } else if (countWatched > NumberMoviesWatched.FAN) {
+    return ProfileRank.MOVIE_BUFF;
+  }
+  return ``;
+};

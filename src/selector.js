@@ -1,7 +1,8 @@
 import { getCardsByFilter } from "./utils/filter";
 import { getCardsBySortType } from "./utils/sort";
+import { getProfileRating } from "./utils/common";
 import { createSelector } from "reselect";
-import { FilmsListTitle, SortType, CardCount } from "./const";
+import { FilmsListTitle, SortType, CardCount, FilterType } from "./const";
 
 export const getFilms = (state) => state.films;
 export const getOpenedFilm = (state) => state.openedFilm;
@@ -41,3 +42,9 @@ export const isShowMoreSelector = createSelector(
   getFilmStack,
   (films, filmsStack) => films.length > filmsStack
 );
+
+export const getRatingSelector = createSelector(getFilms, (films) => {
+  const filteredFilms = getCardsByFilter(films, FilterType.HISTORY);
+  const countFilms = filteredFilms.length;
+  return getProfileRating(countFilms);
+});
