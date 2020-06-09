@@ -9,9 +9,7 @@ export const getCardsBySortType = (cards, sortType) => {
     case SortType.RATING:
       return [...cards].sort((a, b) => b.rating - a.rating);
     case SortType.COMMENT:
-      return [...cards].sort(
-        (a, b) => b.commentsId.length - a.commentsId.length
-      );
+      return [...cards].sort((a, b) => b.comments.length - a.comments.length);
   }
   return cards;
 };

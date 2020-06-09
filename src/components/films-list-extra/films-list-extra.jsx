@@ -1,17 +1,23 @@
 import React from "react";
-// import FilmCardComponent from "../film-card/film-card.jsx";
+import FilmCardComponent from "../film-card/film-card.jsx";
+import { connect } from "react-redux";
+import { getExtraFilms } from "../../selector";
 
-const FilmsListExtra = () => {
+const FilmsListExtra = ({ title, films }) => {
   return (
     <section className="films-list--extra">
-      <h2 className="films-list__title">Top rated</h2>
+      <h2 className="films-list__title">{title}</h2>
 
       <div className="films-list__container">
-        {/*<FilmCardComponent/>*/}
-        {/*<FilmCardComponent/>*/}
+        {films &&
+          films.map((card, i) => <FilmCardComponent key={i} card={card} />)}
       </div>
     </section>
   );
 };
 
-export default FilmsListExtra;
+const mapStateToProps = (state, props) => ({
+  films: getExtraFilms(state, props),
+});
+
+export default connect(mapStateToProps)(FilmsListExtra);
