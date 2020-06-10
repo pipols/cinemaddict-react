@@ -53,6 +53,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   setActiveSort(sortType) {
     dispatch(ActionCreator.setSortType(sortType));
+    dispatch(ActionCreator.resetFilmStack());
   },
 });
 
