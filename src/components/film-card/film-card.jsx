@@ -2,11 +2,21 @@ import React from "react";
 import { connect } from "react-redux";
 import { ActionCreator } from "../../reducer";
 import { getLimitString, getRuntimeFilm } from "../../utils/common";
+import { reformatDate, TimeToken } from "../../utils/date";
 
 // eslint-disable-next-line react/prop-types
 const FilmCard = ({ card, setOpenedFilm }) => {
   // eslint-disable-next-line react/prop-types
-  const { title, rating, runtime, genre, poster, description, comments } = card;
+  const {
+    title,
+    rating,
+    runtime,
+    genre,
+    poster,
+    description,
+    comments,
+    releaseDate,
+  } = card;
   return (
     <article className="film-card">
       <h3 onClick={() => setOpenedFilm(card)} className="film-card__title">
@@ -15,7 +25,9 @@ const FilmCard = ({ card, setOpenedFilm }) => {
       <p className="film-card__rating">{rating}</p>
       <p className="film-card__info">
         {/* eslint-disable-next-line react/prop-types */}
-        <span className="film-card__year">{}</span>
+        <span className="film-card__year">
+          {reformatDate(releaseDate, TimeToken.year)}
+        </span>
         <span className="film-card__duration">{getRuntimeFilm(runtime)}</span>
         <span className="film-card__genre">{genre}</span>
       </p>

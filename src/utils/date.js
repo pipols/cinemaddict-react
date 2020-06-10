@@ -1,4 +1,8 @@
-const TimeToken = { year: `numeric`, month: `long`, day: `numeric` };
+// const TimeToken = { year: `numeric`, month: `long`, day: `numeric` };
 
-export const reformatDate = (date) =>
-  new Intl.DateTimeFormat(`en-EN`, TimeToken).format(new Date(date));
+export const TimeToken = {
+  year: { year: `numeric` },
+};
+
+export const reformatDate = (date, options) =>
+  new Intl.DateTimeFormat(`en-EN`, options).format(new Date(date));
