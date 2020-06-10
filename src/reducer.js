@@ -17,6 +17,7 @@ const ActionType = {
   SET_SORT_TYPE: `SET_SORT_TYPE`,
   SET_FILTER_TYPE: `SET_FILTER_TYPE`,
   ADD_FILM_STACK: `ADD_FILM_STACK`,
+  RESET_FILM_STACK: `RESET_FILM_STACK`,
 };
 
 export const ActionCreator = {
@@ -43,6 +44,10 @@ export const ActionCreator = {
   addFilmStack: () => ({
     type: ActionType.ADD_FILM_STACK,
     payload: CardCount.BY_BUTTON,
+  }),
+  resetFilmStack: () => ({
+    type: ActionType.RESET_FILM_STACK,
+    payload: CardCount.MAIN_FILM,
   }),
 };
 
@@ -71,6 +76,10 @@ export const reducer = (state = initialState, action) => {
     case ActionType.ADD_FILM_STACK:
       return extend(state, {
         filmStack: state.filmStack + action.payload,
+      });
+    case ActionType.RESET_FILM_STACK:
+      return extend(state, {
+        filmStack: action.payload,
       });
   }
 

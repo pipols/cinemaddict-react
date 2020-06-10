@@ -8,7 +8,7 @@ export const filmAdapter = (film) => ({
   director: film.film_info.director,
   writers: film.film_info.writers,
   actors: film.film_info.actors,
-  releaseDate: new Date(film.film_info.release.date),
+  releaseDate: film.film_info.release.date,
   releaseCountry: film.film_info.release.release_country,
   runtime: film.film_info.runtime,
   genre: film.film_info.genre,

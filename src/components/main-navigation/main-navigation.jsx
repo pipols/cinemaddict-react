@@ -73,6 +73,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   setActiveFilter(filter) {
     dispatch(ActionCreator.setFilterType(filter));
+    dispatch(ActionCreator.resetFilmStack());
   },
 });
 
