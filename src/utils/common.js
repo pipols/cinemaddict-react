@@ -47,3 +47,15 @@ export const getProfileRating = (countWatched) => {
   }
   return ``;
 };
+
+const MAX_LENGTH_DESCRIPTION = 140;
+
+export const getLimitString = (
+  string,
+  lastSymbol = `...`,
+  maxLength = MAX_LENGTH_DESCRIPTION
+) => {
+  return string.length > maxLength
+    ? string.substr(0, maxLength - lastSymbol.length) + lastSymbol
+    : string;
+};

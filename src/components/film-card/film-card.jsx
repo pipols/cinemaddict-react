@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { ActionCreator } from "../../reducer";
+import { getLimitString } from "../../utils/common";
 
 // eslint-disable-next-line react/prop-types
 const FilmCard = ({ card, setOpenedFilm }) => {
@@ -24,7 +25,7 @@ const FilmCard = ({ card, setOpenedFilm }) => {
         alt={title}
         className="film-card__poster"
       />
-      <p className="film-card__description">{description}</p>
+      <p className="film-card__description">{getLimitString(description)}</p>
       {/* eslint-disable-next-line react/prop-types */}
       <a onClick={() => setOpenedFilm(card)} className="film-card__comments">
         {comments.length} comments
