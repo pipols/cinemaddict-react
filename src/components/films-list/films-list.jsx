@@ -16,7 +16,7 @@ const FilmsList = ({ films, isShowMore }) => {
       <div className="films-list__container">
         {films &&
           films.map((card, i) => <FilmCardComponent key={i} card={card} />)}
-        {films ? FilmsListTitle.MESSAGE_NO_FILMS : ``}
+        {films ? `` : FilmsListTitle.MESSAGE_NO_FILMS}
       </div>
 
       {isShowMore && <ShowMoreComponent />}
