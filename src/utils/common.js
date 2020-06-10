@@ -59,3 +59,6 @@ export const getLimitString = (
     ? string.substr(0, maxLength - lastSymbol.length) + lastSymbol
     : string;
 };
+
+export const getRuntimeFilm = (time) =>
+  `${Math.trunc(time / 60)}h ${time % 60}m`;

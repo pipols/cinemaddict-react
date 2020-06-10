@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { ActionCreator } from "../../reducer";
-import { getLimitString } from "../../utils/common";
+import { getLimitString, getRuntimeFilm } from "../../utils/common";
 
 // eslint-disable-next-line react/prop-types
 const FilmCard = ({ card, setOpenedFilm }) => {
@@ -16,7 +16,7 @@ const FilmCard = ({ card, setOpenedFilm }) => {
       <p className="film-card__info">
         {/* eslint-disable-next-line react/prop-types */}
         <span className="film-card__year">{}</span>
-        <span className="film-card__duration">{runtime}</span>
+        <span className="film-card__duration">{getRuntimeFilm(runtime)}</span>
         <span className="film-card__genre">{genre}</span>
       </p>
       <img
