@@ -2,6 +2,7 @@ import React from "react";
 import FilmCardComponent from "../film-card/film-card.jsx";
 import { connect } from "react-redux";
 import { getExtraFilms } from "../../selector";
+import { FilmsListTitle } from "../../const";
 
 const FilmsListExtra = ({ title, films }) => {
   return (
@@ -11,6 +12,7 @@ const FilmsListExtra = ({ title, films }) => {
       <div className="films-list__container">
         {films &&
           films.map((card, i) => <FilmCardComponent key={i} card={card} />)}
+        {films ? FilmsListTitle.MESSAGE_NO_FILMS : ``}
       </div>
     </section>
   );
