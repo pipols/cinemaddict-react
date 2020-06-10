@@ -60,5 +60,8 @@ export const getLimitString = (
     : string;
 };
 
-export const getRuntimeFilm = (time) =>
-  `${Math.trunc(time / 60)}h ${time % 60}m`;
+export const getRuntimeFilm = (time) => {
+  const hour = Math.trunc(time / 60);
+  const minutes = time % 60;
+  return hour ? `${hour}h ${minutes}m` : `${minutes}m`;
+};
