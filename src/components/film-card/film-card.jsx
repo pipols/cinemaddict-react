@@ -1,11 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { ActionCreator } from "../../reducer";
+import { ActionCreator, operation } from "../../reducer";
 import { getLimitString, getRuntimeFilm } from "../../utils/common";
 import { reformatDate, TimeToken } from "../../utils/date";
+import { UserControl } from "../../const";
 
+const ACTIVE_CONTROL_CLASS = `film-card__controls-item--active`;
 // eslint-disable-next-line react/prop-types
-const FilmCard = ({ card, setOpenedFilm }) => {
+const FilmCard = ({ card, setOpenedFilm, changeControl }) => {
   // eslint-disable-next-line react/prop-types
   const {
     title,
@@ -16,6 +18,9 @@ const FilmCard = ({ card, setOpenedFilm }) => {
     description,
     comments,
     releaseDate,
+    watchlist,
+    watched,
+    favorite,
   } = card;
   return (
     <article className="film-card">
@@ -29,7 +34,7 @@ const FilmCard = ({ card, setOpenedFilm }) => {
           {reformatDate(releaseDate, TimeToken.year)}
         </span>
         <span className="film-card__duration">{getRuntimeFilm(runtime)}</span>
-        <span className="film-card__genre">{genre}</span>
+        <span className="film-card__genre">{genre[0]}</span>
       </p>
       <img
         onClick={() => setOpenedFilm(card)}
@@ -43,13 +48,28 @@ const FilmCard = ({ card, setOpenedFilm }) => {
         {comments.length} comments
       </a>
       <form className="film-card__controls">
-        <button className="film-card__controls-item button film-card__controls-item--add-to-watchlist film-card__controls-item--active">
+        <button
+          onClick={() => changeControl(card, UserControl.WATCHLIST)}
+          className={`${
+            watchlist ? ACTIVE_CONTROL_CLASS : ``
+          } film-card__controls-item button film-card__controls-item--add-to-watchlist`}
+        >
           Add to watchlist
         </button>
-        <button className="film-card__controls-item button film-card__controls-item--mark-as-watched film-card__controls-item--active">
+        <button
+          onClick={() => changeControl(card, UserControl.WATCHED)}
+          className={`${
+            watched ? ACTIVE_CONTROL_CLASS : ``
+          } film-card__controls-item button film-card__controls-item--mark-as-watched`}
+        >
           Mark as watched
         </button>
-        <button className="film-card__controls-item button film-card__controls-item--favorite film-card__controls-item--active">
+        <button
+          onClick={() => changeControl(card, UserControl.FAVORITE)}
+          className={`${
+            favorite ? ACTIVE_CONTROL_CLASS : ``
+          } film-card__controls-item button film-card__controls-item--favorite`}
+        >
           Mark as favorite
         </button>
       </form>
@@ -60,6 +80,10 @@ const FilmCard = ({ card, setOpenedFilm }) => {
 const mapDispachToProps = (dispatch) => ({
   setOpenedFilm(film) {
     dispatch(ActionCreator.setOpenedFilm(film));
+  },
+  changeControl(film, filmStatus) {
+    film[filmStatus] = !film[filmStatus];
+    dispatch(operation.updateFilm(film));
   },
 });
 

@@ -30,3 +30,9 @@ export const FilterType = {
   HISTORY: `history`,
   FAVORITES: `favorites`,
 };
+
+export const UserControl = {
+  WATCHLIST: `watchlist`,
+  WATCHED: `watched`,
+  FAVORITE: `favorite`,
+};

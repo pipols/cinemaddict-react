@@ -1,5 +1,5 @@
 import { extend } from "./utils/common";
-import { filmsAdapter } from "./utils/adapter";
+import { filmsAdapter, filmAdapter, filmToRaw } from "./utils/adapter";
 import { SortType, FilterType, CardCount } from "./const";
 
 const initialState = {
@@ -91,6 +91,24 @@ export const operation = {
     return api.get(`/movies`).then(({ data }) => {
       const films = filmsAdapter(data);
       dispatch(ActionCreator.loadFilms(films));
+    });
+  },
+  updateFilm: (film) => (dispatch, getState, api) => {
+    const rawFilm = filmToRaw(film);
+    const films = getState().films;
+    const index = films.findIndex((it) => it.id === rawFilm.id);
+    if (index === -1) {
+      return false;
+    }
+
+    return api.put(`/movies/${film.id}`, rawFilm).then(({ data }) => {
+      const film = filmAdapter(data);
+      const newFilms = [].concat(
+        films.slice(0, index),
+        film,
+        films.slice(index + 1)
+      );
+      dispatch(ActionCreator.loadFilms(newFilms));
     });
   },
 };
