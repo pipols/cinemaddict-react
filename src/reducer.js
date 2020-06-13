@@ -4,7 +4,7 @@ import { SortType, FilterType, CardCount } from "./const";
 
 const initialState = {
   films: [],
-  openedFilm: null,
+  openedFilmId: null,
   activeSortType: SortType.DEFAULT,
   activeFilterType: FilterType.ALL,
   filmStack: CardCount.MAIN_FILM,
@@ -27,7 +27,7 @@ export const ActionCreator = {
   }),
   setOpenedFilm: (film) => ({
     type: ActionType.SET_OPENED_FILM,
-    payload: film,
+    payload: film.id,
   }),
   removeOpenedFilm: () => ({
     type: ActionType.REMOVE_OPENED_FILM,
@@ -59,11 +59,11 @@ export const reducer = (state = initialState, action) => {
       });
     case ActionType.SET_OPENED_FILM:
       return extend(state, {
-        openedFilm: action.payload,
+        openedFilmId: action.payload,
       });
     case ActionType.REMOVE_OPENED_FILM:
       return extend(state, {
-        openedFilm: action.payload,
+        openedFilmId: action.payload,
       });
     case ActionType.SET_SORT_TYPE:
       return extend(state, {

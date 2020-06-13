@@ -5,10 +5,16 @@ import { createSelector } from "reselect";
 import { FilmsListTitle, SortType, CardCount, FilterType } from "./const";
 
 export const getFilms = (state) => state.films;
-export const getOpenedFilm = (state) => state.openedFilm;
+export const getOpenedFilmId = (state) => state.openedFilmId;
 export const getActiveSort = (state) => state.activeSortType;
 export const getActiveFilter = (state) => state.activeFilterType;
 export const getFilmStack = (state) => state.filmStack;
+
+export const getOpenedFilm = createSelector(
+  getFilms,
+  getOpenedFilmId,
+  (films, openedFilmId) => films.find((film) => film.id === openedFilmId)
+);
 
 export const getExtraFilms = (state, props) => {
   switch (props.title) {

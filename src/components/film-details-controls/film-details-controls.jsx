@@ -1,10 +1,15 @@
 import React from "react";
+import { UserControl } from "../../const";
+import { operation } from "../../reducer";
+import { connect } from "react-redux";
 
-const FilmDetailsControls = ({ card }) => {
+const FilmDetailsControls = ({ card, changeControl }) => {
   const { watchlist, watched, favorite } = card;
+  console.log(card);
   return (
     <section className="film-details__controls">
       <input
+        onChange={() => changeControl(card, UserControl.WATCHLIST)}
         type="checkbox"
         className="film-details__control-input visually-hidden"
         id="watchlist"
@@ -19,6 +24,7 @@ const FilmDetailsControls = ({ card }) => {
       </label>
 
       <input
+        onChange={() => changeControl(card, UserControl.WATCHED)}
         type="checkbox"
         className="film-details__control-input visually-hidden"
         id="watched"
@@ -33,6 +39,7 @@ const FilmDetailsControls = ({ card }) => {
       </label>
 
       <input
+        onChange={() => changeControl(card, UserControl.FAVORITE)}
         type="checkbox"
         className="film-details__control-input visually-hidden"
         id="favorite"
@@ -49,4 +56,11 @@ const FilmDetailsControls = ({ card }) => {
   );
 };
 
-export default FilmDetailsControls;
+const mapDispachToProps = (dispatch) => ({
+  changeControl(film, filmStatus) {
+    film[filmStatus] = !film[filmStatus];
+    dispatch(operation.updateFilm(film));
+  },
+});
+
+export default connect(null, mapDispachToProps)(FilmDetailsControls);
