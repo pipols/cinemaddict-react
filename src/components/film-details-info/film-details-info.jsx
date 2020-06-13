@@ -1,4 +1,6 @@
 import React from "react";
+import { getRuntimeFilm } from "../../utils/common";
+import { reformatDate, TimeToken } from "../../utils/date";
 
 const FilmDetailsInfo = ({ card }) => {
   const {
@@ -13,16 +15,14 @@ const FilmDetailsInfo = ({ card }) => {
     runtime,
     releaseCountry,
     description,
+    poster,
+    genre,
   } = card;
 
   return (
     <div className="film-details__info-wrap">
       <div className="film-details__poster">
-        <img
-          className="film-details__poster-img"
-          src="./images/posters/the-great-flamarion.jpg"
-          alt={title}
-        />
+        <img className="film-details__poster-img" src={poster} alt={title} />
 
         <p className="film-details__age">{ageRating}+</p>
       </div>
@@ -49,19 +49,21 @@ const FilmDetailsInfo = ({ card }) => {
             </tr>
             <tr className="film-details__row">
               <td className="film-details__term">Writers</td>
-              <td className="film-details__cell">{writers}</td>
+              <td className="film-details__cell">{writers.join(`, `)}</td>
             </tr>
             <tr className="film-details__row">
               <td className="film-details__term">Actors</td>
-              <td className="film-details__cell">{actors}</td>
+              <td className="film-details__cell">{actors.join(`, `)}</td>
             </tr>
             <tr className="film-details__row">
               <td className="film-details__term">Release Date</td>
-              <td className="film-details__cell">{releaseDate}</td>
+              <td className="film-details__cell">
+                {reformatDate(releaseDate, TimeToken.release)}
+              </td>
             </tr>
             <tr className="film-details__row">
               <td className="film-details__term">Runtime</td>
-              <td className="film-details__cell">{runtime}</td>
+              <td className="film-details__cell">{getRuntimeFilm(runtime)}</td>
             </tr>
             <tr className="film-details__row">
               <td className="film-details__term">Country</td>
@@ -70,9 +72,7 @@ const FilmDetailsInfo = ({ card }) => {
             <tr className="film-details__row">
               <td className="film-details__term">Genres</td>
               <td className="film-details__cell">
-                <span className="film-details__genre">Drama</span>
-                <span className="film-details__genre">Film-Noir</span>
-                <span className="film-details__genre">Mystery</span>
+                <span className="film-details__genre">{genre.join(` `)}</span>
               </td>
             </tr>
           </tbody>

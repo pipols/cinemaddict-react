@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 
 const FilmDetailsControls = ({ card, changeControl }) => {
   const { watchlist, watched, favorite } = card;
-  console.log(card);
   return (
     <section className="film-details__controls">
       <input

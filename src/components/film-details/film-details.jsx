@@ -11,9 +11,7 @@ class FilmDetails extends React.PureComponent {
 
   render() {
     return (
-      <section
-        className={`film-details ${this.props.card ? `` : `visually-hidden`}`}
-      >
+      <section className="film-details">
         <form className="film-details__inner" action="" method="get">
           <div className="form-details__top-container">
             <FilmDetailsCloseButtonComponent />

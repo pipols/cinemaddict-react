@@ -22,4 +22,4 @@ const mapStateToProps = (state, props) => ({
   films: getExtraFilms(state, props),
 });
 
-export default connect(mapStateToProps)(FilmsListExtra);
+export default connect(mapStateToProps)(React.memo(FilmsListExtra));

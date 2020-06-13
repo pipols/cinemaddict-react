@@ -2,6 +2,7 @@
 
 export const TimeToken = {
   year: { year: `numeric` },
+  release: { day: `numeric`, month: `long`, year: `numeric` },
 };
 
 export const reformatDate = (date, options) =>
