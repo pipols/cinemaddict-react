@@ -3,10 +3,16 @@ import FilmDetailsCloseButtonComponent from "../film-details-close-button/film-d
 import FilmDetailsInfoComponent from "../film-details-info/film-details-info.jsx";
 import FilmDetailsControlsComponent from "../film-details-controls/film-details-controls.jsx";
 import CommentsComponent from "../comments/comments.jsx";
+import { connect } from "react-redux";
+import { operation } from "../../reducer.js";
 
 class FilmDetails extends React.PureComponent {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    this.props.loadComments(this.props.card);
   }
 
   render() {
@@ -28,4 +34,10 @@ class FilmDetails extends React.PureComponent {
   }
 }
 
-export default FilmDetails;
+const mapDispatchToProps = (dispatch) => ({
+  loadComments(card) {
+    dispatch(operation.loadComment(card.id));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(FilmDetails);

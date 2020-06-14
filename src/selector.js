@@ -9,6 +9,7 @@ export const getOpenedFilmId = (state) => state.openedFilmId;
 export const getActiveSort = (state) => state.activeSortType;
 export const getActiveFilter = (state) => state.activeFilterType;
 export const getFilmStack = (state) => state.filmStack;
+export const getComments = (state) => state.comments;
 
 export const getOpenedFilm = createSelector(
   getFilms,

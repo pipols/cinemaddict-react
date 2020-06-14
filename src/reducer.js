@@ -8,6 +8,7 @@ const initialState = {
   activeSortType: SortType.DEFAULT,
   activeFilterType: FilterType.ALL,
   filmStack: CardCount.MAIN_FILM,
+  comments: [],
 };
 
 const ActionType = {
@@ -18,6 +19,7 @@ const ActionType = {
   SET_FILTER_TYPE: `SET_FILTER_TYPE`,
   ADD_FILM_STACK: `ADD_FILM_STACK`,
   RESET_FILM_STACK: `RESET_FILM_STACK`,
+  LOAD_COMMENTS: `LOAD_COMMENTS`,
 };
 
 export const ActionCreator = {
@@ -48,6 +50,10 @@ export const ActionCreator = {
   resetFilmStack: () => ({
     type: ActionType.RESET_FILM_STACK,
     payload: CardCount.MAIN_FILM,
+  }),
+  loadComment: (comments) => ({
+    type: ActionType.LOAD_COMMENTS,
+    payload: comments,
   }),
 };
 
@@ -81,6 +87,10 @@ export const reducer = (state = initialState, action) => {
       return extend(state, {
         filmStack: action.payload,
       });
+    case ActionType.LOAD_COMMENTS:
+      return extend(state, {
+        comments: action.payload,
+      });
   }
 
   return state;
@@ -109,6 +119,11 @@ export const operation = {
         films.slice(index + 1)
       );
       dispatch(ActionCreator.loadFilms(newFilms));
+    });
+  },
+  loadComment: (filmId) => (dispatch, getState, api) => {
+    return api.get(`/comments/${filmId}`).then(({ data }) => {
+      dispatch(ActionCreator.loadComment(data));
     });
   },
 };
