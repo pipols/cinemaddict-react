@@ -126,4 +126,11 @@ export const operation = {
       dispatch(ActionCreator.loadComment(data));
     });
   },
+  postComment: (comment) => (dispatch, getState, api) => {
+    const filmId = getState().openedFilmId;
+    return api.post(`/comments/${filmId}`, comment).then(({ data }) => {
+      const { comments } = data;
+      dispatch(ActionCreator.loadComment(comments));
+    });
+  },
 };
