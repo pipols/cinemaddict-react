@@ -37,7 +37,15 @@ class NewComment extends React.PureComponent {
         onKeyDown={this.handlerNewCommentKeydown}
         className="film-details__new-comment"
       >
-        <div htmlFor="add-emoji" className="film-details__add-emoji-label" />
+        <div htmlFor="add-emoji" className="film-details__add-emoji-label">
+          {this.state.emoji && (
+            <img
+              src={`./images/emoji/${this.state.emoji}.png`}
+              width="50"
+              height="50"
+            ></img>
+          )}
+        </div>
 
         <label className="film-details__comment-label">
           <textarea
