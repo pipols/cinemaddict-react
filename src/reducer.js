@@ -20,6 +20,7 @@ const ActionType = {
   ADD_FILM_STACK: `ADD_FILM_STACK`,
   RESET_FILM_STACK: `RESET_FILM_STACK`,
   LOAD_COMMENTS: `LOAD_COMMENTS`,
+  DELETE_COMMENT: `DELETE_COMMENT`,
 };
 
 export const ActionCreator = {
@@ -54,6 +55,10 @@ export const ActionCreator = {
   loadComment: (comments) => ({
     type: ActionType.LOAD_COMMENTS,
     payload: comments,
+  }),
+  deleteComment: (comment) => ({
+    type: ActionType.DELETE_COMMENT,
+    payload: comment,
   }),
 };
 
@@ -90,6 +95,12 @@ export const reducer = (state = initialState, action) => {
     case ActionType.LOAD_COMMENTS:
       return extend(state, {
         comments: action.payload,
+      });
+    case ActionType.DELETE_COMMENT:
+      return extend(state, {
+        comments: state.comments.filter(
+          (comment) => comment !== action.payload
+        ),
       });
   }
 
@@ -132,5 +143,10 @@ export const operation = {
       const { comments } = data;
       dispatch(ActionCreator.loadComment(comments));
     });
+  },
+  deleteComment: (comment) => (dispatch, getState, api) => {
+    return api
+      .delete(`comments/${comment.id}`)
+      .then(dispatch(ActionCreator.deleteComment(comment)));
   },
 };

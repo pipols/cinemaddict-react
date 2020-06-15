@@ -1,9 +1,10 @@
 import React from "react";
 import { reformatDate, TimeToken } from "../../utils/date";
+import { connect } from "react-redux";
+import { operation } from "../../reducer";
 
-const Comment = ({ usersComments }) => {
+const Comment = ({ usersComments, deleteComment }) => {
   const { author, comment, date, emotion } = usersComments;
-
   return (
     <li className="film-details__comment">
       <span className="film-details__comment-emoji">
@@ -21,11 +22,25 @@ const Comment = ({ usersComments }) => {
           <span className="film-details__comment-day">
             {reformatDate(date, TimeToken.comment)}
           </span>
-          <button className="film-details__comment-delete">Delete</button>
+          <button
+            onClick={(evt) => {
+              evt.preventDefault();
+              deleteComment(usersComments);
+            }}
+            className="film-details__comment-delete"
+          >
+            Delete
+          </button>
         </p>
       </div>
     </li>
   );
 };
 
-export default Comment;
+const mapDispatchToProps = (dispatch) => ({
+  deleteComment(comment) {
+    dispatch(operation.deleteComment(comment));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(Comment);
