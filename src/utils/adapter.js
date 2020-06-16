@@ -17,7 +17,8 @@ export const filmAdapter = (film) => ({
   watched: film.user_details.already_watched,
   favorite: film.user_details.favorite,
   watchingDate: film.user_details.watching_date,
-  comments: film.comments,
+  commentsId: film.comments,
+  comments: [],
 });
 
 export const filmsAdapter = (films) => films.map((film) => filmAdapter(film));
@@ -25,7 +26,7 @@ export const filmsAdapter = (films) => films.map((film) => filmAdapter(film));
 export const filmToRaw = (film) => {
   return {
     id: film.id,
-    comments: film.comments,
+    comments: film.commentsId,
     film_info: {
       title: film.title,
       alternative_title: film.alternativeTitle,
