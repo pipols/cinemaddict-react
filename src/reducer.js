@@ -21,6 +21,7 @@ const ActionType = {
   RESET_FILM_STACK: `RESET_FILM_STACK`,
   LOAD_COMMENTS: `LOAD_COMMENTS`,
   DELETE_COMMENT: `DELETE_COMMENT`,
+  CLEAR_COMMENTS: `CLEAR_COMMENTS`,
 };
 
 export const ActionCreator = {
@@ -59,6 +60,9 @@ export const ActionCreator = {
   deleteComment: (comment) => ({
     type: ActionType.DELETE_COMMENT,
     payload: comment,
+  }),
+  clearComments: () => ({
+    type: ActionType.CLEAR_COMMENTS,
   }),
 };
 
@@ -101,6 +105,10 @@ export const reducer = (state = initialState, action) => {
         comments: state.comments.filter(
           (comment) => comment !== action.payload
         ),
+      });
+    case ActionType.CLEAR_COMMENTS:
+      return extend(state, {
+        comments: [],
       });
   }
 
