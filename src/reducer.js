@@ -13,14 +13,15 @@ const initialState = {
 
 const ActionType = {
   LOAD_FILMS: `LOAD_FILMS`,
-  SET_OPENED_FILM: `SET_OPENED_FILM`,
-  REMOVE_OPENED_FILM: `REMOVE_OPENED_FILM`,
+  SET_OPENED_FILM_ID: `SET_OPENED_FILM_ID`,
+  REMOVE_OPENED_FILM_ID: `REMOVE_OPENED_FILM_ID`,
   SET_SORT_TYPE: `SET_SORT_TYPE`,
   SET_FILTER_TYPE: `SET_FILTER_TYPE`,
   ADD_FILM_STACK: `ADD_FILM_STACK`,
   RESET_FILM_STACK: `RESET_FILM_STACK`,
   LOAD_COMMENTS: `LOAD_COMMENTS`,
   DELETE_COMMENT: `DELETE_COMMENT`,
+  UPDATE_FILMS: `UPDATE_FILMS`,
 };
 
 export const ActionCreator = {
@@ -28,12 +29,16 @@ export const ActionCreator = {
     type: ActionType.LOAD_FILMS,
     payload: films,
   }),
-  setOpenedFilm: (film) => ({
-    type: ActionType.SET_OPENED_FILM,
-    payload: film.id,
+  updateFilms: (films) => ({
+    type: ActionType.UPDATE_FILMS,
+    payload: films,
   }),
-  removeOpenedFilm: () => ({
-    type: ActionType.REMOVE_OPENED_FILM,
+  setOpenedFilmId: (id) => ({
+    type: ActionType.SET_OPENED_FILM_ID,
+    payload: id,
+  }),
+  removeOpenedFilmId: () => ({
+    type: ActionType.REMOVE_OPENED_FILM_ID,
     payload: null,
   }),
   setSortType: (sortType) => ({
@@ -68,11 +73,15 @@ export const reducer = (state = initialState, action) => {
       return extend(state, {
         films: action.payload,
       });
-    case ActionType.SET_OPENED_FILM:
+    case ActionType.UPDATE_FILMS:
+      return extend(state, {
+        films: action.payload,
+      });
+    case ActionType.SET_OPENED_FILM_ID:
       return extend(state, {
         openedFilmId: action.payload,
       });
-    case ActionType.REMOVE_OPENED_FILM:
+    case ActionType.REMOVE_OPENED_FILM_ID:
       return extend(state, {
         openedFilmId: action.payload,
       });
@@ -92,10 +101,11 @@ export const reducer = (state = initialState, action) => {
       return extend(state, {
         filmStack: action.payload,
       });
-    case ActionType.LOAD_COMMENTS:
+    case ActionType.LOAD_COMMENTS: {
       return extend(state, {
         comments: action.payload,
       });
+    }
     case ActionType.DELETE_COMMENT:
       return extend(state, {
         comments: state.comments.filter(
@@ -129,19 +139,35 @@ export const operation = {
         film,
         films.slice(index + 1)
       );
-      dispatch(ActionCreator.loadFilms(newFilms));
+      dispatch(ActionCreator.updateFilms(newFilms));
     });
   },
   loadComment: (filmId) => (dispatch, getState, api) => {
+    const films = getState().films;
+    const index = films.findIndex((it) => it.id === filmId);
+
+    if (index === -1) {
+      return false;
+    }
+
     return api.get(`/comments/${filmId}`).then(({ data }) => {
-      dispatch(ActionCreator.loadComment(data));
+      films[index].comments = data;
+      dispatch(ActionCreator.updateFilms(films));
     });
   },
   postComment: (comment) => (dispatch, getState, api) => {
-    const filmId = getState().openedFilmId;
+    const filmId = getState().openedFilm.id;
     return api.post(`/comments/${filmId}`, comment).then(({ data }) => {
-      const { comments } = data;
-      dispatch(ActionCreator.loadComment(comments));
+      const { comments, movie } = data;
+      const film = filmAdapter(movie);
+      film.comments = comments;
+      const index = films.findIndex((it) => it.id === film.id);
+      const newFilms = [].concat(
+        films.slice(0, index),
+        film,
+        films.slice(index + 1)
+      );
+      dispatch(ActionCreator.updateFilms(newFilms));
     });
   },
   deleteComment: (comment) => (dispatch, getState, api) => {

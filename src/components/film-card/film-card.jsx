@@ -16,7 +16,7 @@ const FilmCard = ({ card, setOpenedFilm, changeControl }) => {
     genre,
     poster,
     description,
-    comments,
+    commentsId,
     releaseDate,
     watchlist,
     watched,
@@ -45,7 +45,7 @@ const FilmCard = ({ card, setOpenedFilm, changeControl }) => {
       <p className="film-card__description">{getLimitString(description)}</p>
       {/* eslint-disable-next-line react/prop-types */}
       <a onClick={() => setOpenedFilm(card)} className="film-card__comments">
-        {comments.length} comments
+        {commentsId.length} comments
       </a>
       <form className="film-card__controls">
         <button
@@ -79,7 +79,7 @@ const FilmCard = ({ card, setOpenedFilm, changeControl }) => {
 
 const mapDispachToProps = (dispatch) => ({
   setOpenedFilm(film) {
-    dispatch(ActionCreator.setOpenedFilm(film));
+    dispatch(ActionCreator.setOpenedFilmId(film.id));
   },
   changeControl(film, filmStatus) {
     film[filmStatus] = !film[filmStatus];

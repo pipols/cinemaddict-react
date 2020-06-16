@@ -9,12 +9,22 @@ export const getOpenedFilmId = (state) => state.openedFilmId;
 export const getActiveSort = (state) => state.activeSortType;
 export const getActiveFilter = (state) => state.activeFilterType;
 export const getFilmStack = (state) => state.filmStack;
-export const getComments = (state) => state.comments;
 
 export const getOpenedFilm = createSelector(
   getFilms,
   getOpenedFilmId,
-  (films, openedFilmId) => films.find((film) => film.id === openedFilmId)
+  (films, id) => films.find((film) => film.id === id)
+);
+
+export const getComments = createSelector(
+  getFilms,
+  getOpenedFilmId,
+  (films, id) => {
+    const film = films.find((film) => film.id === id);
+    console.log(film);
+    console.log(film.comments);
+    return film.comments;
+  }
 );
 
 export const getExtraFilms = (state, props) => {

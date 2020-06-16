@@ -18,7 +18,7 @@ const FilmDetailsCloseButton = ({ removeOpenedFilm }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   removeOpenedFilm() {
-    dispatch(ActionCreator.removeOpenedFilm());
+    dispatch(ActionCreator.removeOpenedFilmId());
   },
 });
 
