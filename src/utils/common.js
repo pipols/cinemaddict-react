@@ -65,3 +65,21 @@ export const getRuntimeFilm = (time) => {
   const minutes = time % 60;
   return hour ? `${hour}h ${minutes}m` : `${minutes}m`;
 };
+
+// export const replaceFilmToFilmsList = (list, film) =>
+//   list.map((elem) => (elem.id === film.id ? film : elem));
+
+export const replaceFilmToFilmsList = (films, film) => {
+  const index = films.findIndex((it) => it.id === film.id);
+  if (index === -1) {
+    return false;
+  }
+
+  const updatedFilms = [].concat(
+    films.slice(0, index),
+    film,
+    films.slice(index + 1)
+  );
+
+  return updatedFilms;
+};

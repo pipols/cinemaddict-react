@@ -1,4 +1,4 @@
-import { extend } from "./utils/common";
+import { extend, replaceFilmToFilmsList } from "./utils/common";
 import { filmsAdapter, filmAdapter, filmToRaw } from "./utils/adapter";
 import { SortType, FilterType, CardCount } from "./const";
 
@@ -124,24 +124,28 @@ export const operation = {
       dispatch(ActionCreator.loadFilms(films));
     });
   },
-  updateFilm: (film) => (dispatch, getState, api) => {
-    const rawFilm = filmToRaw(film);
-    const films = getState().films;
-    const index = films.findIndex((it) => it.id === rawFilm.id);
-    if (index === -1) {
-      return false;
-    }
+  // updateFilm: (film) => (dispatch, getState, api) => {
+  //   const rawFilm = filmToRaw(film);
+  //   const films = getState().films;
+  //   const index = films.findIndex((it) => it.id === rawFilm.id);
+  //   if (index === -1) {
+  //     return false;
+  //   }
 
-    return api.put(`/movies/${film.id}`, rawFilm).then(({ data }) => {
-      const film = filmAdapter(data);
-      const newFilms = [].concat(
-        films.slice(0, index),
-        film,
-        films.slice(index + 1)
-      );
-      dispatch(ActionCreator.updateFilms(newFilms));
-    });
-  },
+  //   return api.put(`/movies/${film.id}`, rawFilm).then(({ data }) => {
+  //     // const comments = film.comments;
+  //     const updatedFilm = filmAdapter(data);
+  //     // updatedFilm.comments = comments;
+  //     // const updatedFilms = replaceFilmToFilmsList(films, updatedFilm);
+  //     const updatedFilms = [].concat(
+  //       films.slice(0, index),
+  //       updatedFilm,
+  //       films.slice(index + 1)
+  //     );
+  //     // dispatch(ActionCreator.updateFilms(updatedFilms));
+  //     dispatch(ActionCreator.loadFilms(updatedFilms));
+  //   });
+  // },
   loadComment: (filmId) => (dispatch, getState, api) => {
     const films = getState().films;
     const index = films.findIndex((it) => it.id === filmId);
@@ -156,10 +160,11 @@ export const operation = {
     });
   },
   postComment: (comment) => (dispatch, getState, api) => {
-    const filmId = getState().openedFilm.id;
+    const filmId = getState().openedFilmId;
     return api.post(`/comments/${filmId}`, comment).then(({ data }) => {
       const { comments, movie } = data;
       const film = filmAdapter(movie);
+      const films = getState().films;
       film.comments = comments;
       const index = films.findIndex((it) => it.id === film.id);
       const newFilms = [].concat(
@@ -171,6 +176,7 @@ export const operation = {
     });
   },
   deleteComment: (comment) => (dispatch, getState, api) => {
+    // merge delete comment
     return api
       .delete(`comments/${comment.id}`)
       .then(dispatch(ActionCreator.deleteComment(comment)));

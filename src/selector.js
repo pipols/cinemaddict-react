@@ -16,16 +16,24 @@ export const getOpenedFilm = createSelector(
   (films, id) => films.find((film) => film.id === id)
 );
 
-export const getComments = createSelector(
-  getFilms,
-  getOpenedFilmId,
-  (films, id) => {
-    const film = films.find((film) => film.id === id);
-    console.log(film);
-    console.log(film.comments);
-    return film.comments;
-  }
-);
+export const getComments = (state) => {
+  const films = getFilms(state);
+  const openedFilmId = getOpenedFilmId(state);
+  const film = films.find((film) => film.id === openedFilmId);
+  return film.comments;
+};
+
+// разобратся почему не работает
+// export const getComments = createSelector(
+//   getFilms,
+//   getOpenedFilmId,
+//   (films, id) => {
+//     const film = films.find((film) => film.id === id);
+//     console.log(film);
+//     console.log(film.comments);
+//     return film.comments;
+//   }
+// );
 
 export const getExtraFilms = (state, props) => {
   switch (props.title) {
