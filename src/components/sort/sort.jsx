@@ -57,4 +57,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Sort);
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Sort));

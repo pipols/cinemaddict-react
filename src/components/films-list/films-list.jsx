@@ -29,4 +29,4 @@ const mapStateToProps = (state) => ({
   isShowMore: isShowMoreSelector(state),
 });
 
-export default connect(mapStateToProps)(FilmsList);
+export default connect(mapStateToProps)(React.memo(FilmsList));

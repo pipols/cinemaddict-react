@@ -14,4 +14,4 @@ const FilmsContainer = () => {
   );
 };
 
-export default FilmsContainer;
+export default React.memo(FilmsContainer);

@@ -16,7 +16,7 @@ const FilmCard = ({ card, setOpenedFilm, changeControl }) => {
     genre,
     poster,
     description,
-    comments,
+    commentsId,
     releaseDate,
     watchlist,
     watched,
@@ -45,11 +45,14 @@ const FilmCard = ({ card, setOpenedFilm, changeControl }) => {
       <p className="film-card__description">{getLimitString(description)}</p>
       {/* eslint-disable-next-line react/prop-types */}
       <a onClick={() => setOpenedFilm(card)} className="film-card__comments">
-        {comments.length} comments
+        {commentsId.length} comments
       </a>
       <form className="film-card__controls">
         <button
-          onClick={() => changeControl(card, UserControl.WATCHLIST)}
+          onClick={(evt) => {
+            evt.preventDefault();
+            changeControl(card, UserControl.WATCHLIST);
+          }}
           className={`${
             watchlist ? ACTIVE_CONTROL_CLASS : ``
           } film-card__controls-item button film-card__controls-item--add-to-watchlist`}
@@ -57,7 +60,10 @@ const FilmCard = ({ card, setOpenedFilm, changeControl }) => {
           Add to watchlist
         </button>
         <button
-          onClick={() => changeControl(card, UserControl.WATCHED)}
+          onClick={(evt) => {
+            evt.preventDefault();
+            changeControl(card, UserControl.WATCHED);
+          }}
           className={`${
             watched ? ACTIVE_CONTROL_CLASS : ``
           } film-card__controls-item button film-card__controls-item--mark-as-watched`}
@@ -65,7 +71,10 @@ const FilmCard = ({ card, setOpenedFilm, changeControl }) => {
           Mark as watched
         </button>
         <button
-          onClick={() => changeControl(card, UserControl.FAVORITE)}
+          onClick={(evt) => {
+            evt.preventDefault();
+            changeControl(card, UserControl.FAVORITE);
+          }}
           className={`${
             favorite ? ACTIVE_CONTROL_CLASS : ``
           } film-card__controls-item button film-card__controls-item--favorite`}
@@ -79,7 +88,7 @@ const FilmCard = ({ card, setOpenedFilm, changeControl }) => {
 
 const mapDispachToProps = (dispatch) => ({
   setOpenedFilm(film) {
-    dispatch(ActionCreator.setOpenedFilm(film));
+    dispatch(ActionCreator.setOpenedFilmId(film.id));
   },
   changeControl(film, filmStatus) {
     film[filmStatus] = !film[filmStatus];

@@ -27,4 +27,4 @@ const mapStateToProps = (state) => ({
   comments: getComments(state),
 });
 
-export default connect(mapStateToProps)(Comments);
+export default connect(mapStateToProps)(React.memo(Comments));

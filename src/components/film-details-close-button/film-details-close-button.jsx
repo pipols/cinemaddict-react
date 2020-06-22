@@ -18,9 +18,11 @@ const FilmDetailsCloseButton = ({ removeOpenedFilm }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   removeOpenedFilm() {
-    dispatch(ActionCreator.removeOpenedFilm());
-    dispatch(ActionCreator.clearComments());
+    dispatch(ActionCreator.removeOpenedFilmId());
   },
 });
 
-export default connect(null, mapDispatchToProps)(FilmDetailsCloseButton);
+export default connect(
+  null,
+  mapDispatchToProps
+)(React.memo(FilmDetailsCloseButton));
