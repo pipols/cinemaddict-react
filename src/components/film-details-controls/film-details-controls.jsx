@@ -62,4 +62,7 @@ const mapDispachToProps = (dispatch) => ({
   },
 });
 
-export default connect(null, mapDispachToProps)(FilmDetailsControls);
+export default connect(
+  null,
+  mapDispachToProps
+)(React.memo(FilmDetailsControls));

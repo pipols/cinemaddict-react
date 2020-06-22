@@ -49,7 +49,10 @@ const FilmCard = ({ card, setOpenedFilm, changeControl }) => {
       </a>
       <form className="film-card__controls">
         <button
-          onClick={() => changeControl(card, UserControl.WATCHLIST)}
+          onClick={(evt) => {
+            evt.preventDefault();
+            changeControl(card, UserControl.WATCHLIST);
+          }}
           className={`${
             watchlist ? ACTIVE_CONTROL_CLASS : ``
           } film-card__controls-item button film-card__controls-item--add-to-watchlist`}
@@ -57,7 +60,10 @@ const FilmCard = ({ card, setOpenedFilm, changeControl }) => {
           Add to watchlist
         </button>
         <button
-          onClick={() => changeControl(card, UserControl.WATCHED)}
+          onClick={(evt) => {
+            evt.preventDefault();
+            changeControl(card, UserControl.WATCHED);
+          }}
           className={`${
             watched ? ACTIVE_CONTROL_CLASS : ``
           } film-card__controls-item button film-card__controls-item--mark-as-watched`}
@@ -65,7 +71,10 @@ const FilmCard = ({ card, setOpenedFilm, changeControl }) => {
           Mark as watched
         </button>
         <button
-          onClick={() => changeControl(card, UserControl.FAVORITE)}
+          onClick={(evt) => {
+            evt.preventDefault();
+            changeControl(card, UserControl.FAVORITE);
+          }}
           className={`${
             favorite ? ACTIVE_CONTROL_CLASS : ``
           } film-card__controls-item button film-card__controls-item--favorite`}
@@ -87,4 +96,4 @@ const mapDispachToProps = (dispatch) => ({
   },
 });
 
-export default connect(null, mapDispachToProps)(FilmCard);
+export default connect(null, mapDispachToProps)(React.memo(FilmCard));

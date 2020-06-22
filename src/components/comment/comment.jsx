@@ -43,4 +43,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(null, mapDispatchToProps)(Comment);
+export default connect(null, mapDispatchToProps)(React.memo(Comment));

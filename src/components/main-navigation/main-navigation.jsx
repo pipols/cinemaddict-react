@@ -77,4 +77,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainNavigation);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(React.memo(MainNavigation));

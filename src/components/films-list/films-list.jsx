@@ -15,7 +15,7 @@ const FilmsList = ({ films, isShowMore }) => {
 
       <div className="films-list__container">
         {films &&
-          films.map((card, i) => <FilmCardComponent key={i} card={card} />)}
+          films.map((card) => <FilmCardComponent key={card.id} card={card} />)}
         {films ? `` : FilmsListTitle.MESSAGE_NO_FILMS}
       </div>
 
@@ -29,4 +29,4 @@ const mapStateToProps = (state) => ({
   isShowMore: isShowMoreSelector(state),
 });
 
-export default connect(mapStateToProps)(FilmsList);
+export default connect(mapStateToProps)(React.memo(FilmsList));

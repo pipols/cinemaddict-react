@@ -22,4 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(null, mapDispatchToProps)(FilmDetailsCloseButton);
+export default connect(
+  null,
+  mapDispatchToProps
+)(React.memo(FilmDetailsCloseButton));

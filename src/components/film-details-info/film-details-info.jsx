@@ -84,4 +84,4 @@ const FilmDetailsInfo = ({ card }) => {
   );
 };
 
-export default FilmDetailsInfo;
+export default React.memo(FilmDetailsInfo);

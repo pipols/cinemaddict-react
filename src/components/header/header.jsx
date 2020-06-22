@@ -25,4 +25,4 @@ const mapStateToProps = (state) => ({
   rating: getRatingSelector(state),
 });
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(React.memo(Header));

@@ -61,9 +61,9 @@ export const ActionCreator = {
     type: ActionType.LOAD_COMMENTS,
     payload: comments,
   }),
-  deleteComment: (comment) => ({
+  deleteComment: (comment, filmId) => ({
     type: ActionType.DELETE_COMMENT,
-    payload: comment,
+    payload: { comment, filmId },
   }),
 };
 
@@ -106,12 +106,13 @@ export const reducer = (state = initialState, action) => {
         comments: action.payload,
       });
     }
-    case ActionType.DELETE_COMMENT:
+    case ActionType.DELETE_COMMENT: {
       return extend(state, {
         comments: state.comments.filter(
           (comment) => comment !== action.payload
         ),
       });
+    }
   }
 
   return state;
@@ -124,28 +125,23 @@ export const operation = {
       dispatch(ActionCreator.loadFilms(films));
     });
   },
-  // updateFilm: (film) => (dispatch, getState, api) => {
-  //   const rawFilm = filmToRaw(film);
-  //   const films = getState().films;
-  //   const index = films.findIndex((it) => it.id === rawFilm.id);
-  //   if (index === -1) {
-  //     return false;
-  //   }
+  updateFilm: (film) => (dispatch, getState, api) => {
+    const rawFilm = filmToRaw(film);
+    const films = getState().films;
+    const index = films.findIndex((it) => it.id === rawFilm.id);
+    if (index === -1) {
+      return false;
+    }
 
-  //   return api.put(`/movies/${film.id}`, rawFilm).then(({ data }) => {
-  //     // const comments = film.comments;
-  //     const updatedFilm = filmAdapter(data);
-  //     // updatedFilm.comments = comments;
-  //     // const updatedFilms = replaceFilmToFilmsList(films, updatedFilm);
-  //     const updatedFilms = [].concat(
-  //       films.slice(0, index),
-  //       updatedFilm,
-  //       films.slice(index + 1)
-  //     );
-  //     // dispatch(ActionCreator.updateFilms(updatedFilms));
-  //     dispatch(ActionCreator.loadFilms(updatedFilms));
-  //   });
-  // },
+    return api.put(`/movies/${film.id}`, rawFilm).then(({ data }) => {
+      const updatedFilm = filmAdapter(data); // extend comments
+      updatedFilm.comments = film.comments;
+      const updatedFilms = replaceFilmToFilmsList(films, updatedFilm);
+
+      // dispatch(ActionCreator.updateFilms(updatedFilms));
+      dispatch(ActionCreator.loadFilms(updatedFilms));
+    });
+  },
   loadComment: (filmId) => (dispatch, getState, api) => {
     const films = getState().films;
     const index = films.findIndex((it) => it.id === filmId);
@@ -166,19 +162,25 @@ export const operation = {
       const film = filmAdapter(movie);
       const films = getState().films;
       film.comments = comments;
-      const index = films.findIndex((it) => it.id === film.id);
-      const newFilms = [].concat(
-        films.slice(0, index),
-        film,
-        films.slice(index + 1)
-      );
-      dispatch(ActionCreator.updateFilms(newFilms));
+
+      const updatedFilms = replaceFilmToFilmsList(films, film);
+      dispatch(ActionCreator.updateFilms(updatedFilms));
     });
   },
   deleteComment: (comment) => (dispatch, getState, api) => {
     // merge delete comment
-    return api
-      .delete(`comments/${comment.id}`)
-      .then(dispatch(ActionCreator.deleteComment(comment)));
+
+    return api.delete(`comments/${comment.id}`).then(() => {
+      const films = getState().films;
+      const film = films.find((film) => film.id === getState().openedFilmId);
+      const newComments = film.comments.filter(
+        (itComment) => itComment.id !== comment.id
+      );
+      film.comments = newComments;
+      const newCommentsId = film.commentsId.filter((id) => id !== comment.id);
+      film.commentsId = newCommentsId;
+      const updatedFilms = replaceFilmToFilmsList(films, film);
+      dispatch(ActionCreator.updateFilms(updatedFilms));
+    });
   },
 };

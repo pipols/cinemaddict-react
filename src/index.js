@@ -26,11 +26,7 @@ const store = createStore(
 );
 
 store.dispatch(operation.loadFilms());
-
-// api
-//   .get(`/movies`)
-//   .then(({ data }) => filmsAdapter(data))
-//   .then((films) =>
+console.log(`load page`);
 ReactDOM.render(
   <Provider store={store}>
     <App />
