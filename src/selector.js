@@ -62,8 +62,19 @@ export const getFilteredFilmsSelector = createSelector(
   }
 );
 
-export const isShowMoreSelector = createSelector(
+export const getCountFilteredFilmSelector = createSelector(
   getFilms,
+  getActiveSort,
+  getActiveFilter,
+  (films, activeSort, activeFilter) => {
+    const filteredFilms = getCardsByFilter(films, activeFilter);
+    const sortedFilms = getCardsBySortType(filteredFilms, activeSort);
+    return sortedFilms;
+  }
+);
+
+export const isShowMoreSelector = createSelector(
+  getCountFilteredFilmSelector,
   getFilmStack,
   (films, filmsStack) => films.length > filmsStack
 );
